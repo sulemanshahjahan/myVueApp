@@ -87,6 +87,7 @@ export default {
   display: flex;
   width: 340px;
   margin: auto;
+  margin-top: 40px;
 }
 .pagination a {
   flex: 1;
@@ -100,5 +101,15 @@ export default {
 
 #page-next {
   text-align: right;
+}
+@media (max-width: 480px) {
+  .events {
+    display: block;
+    column-gap: 0%;
+  }
+  .event-card {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>
