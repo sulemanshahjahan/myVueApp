@@ -1,45 +1,104 @@
 <template>
-  <h1>Events For Good (Wah bhai wah).</h1>
+  <h1>Events For Good.</h1>
   <br />
+  <img v-if="events === null" src="../../src/assets/images/spinner.jpg" />
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
+  </div>
+  <div class="pagination">
+    <router-link
+      id="page-prev"
+      :to="{ name: 'EventList', query: { page: page - 1 } }"
+      v-if="page != 1"
+      >Prev Page
+    </router-link>
+
+    <div class="numeraic">
+      <router-link
+        v-for="index in totalPages"
+        v-show="page != index"
+        :class="{ active: isActive }"
+        :key="index"
+        :to="'/?page=' + index"
+        >.{{ index }}.
+      </router-link>
+    </div>
+
+    <router-link
+      id="page-next"
+      v-if="hasNextPage"
+      :to="{ name: 'EventList', query: { page: page + 1 } }"
+      >Next Page
+    </router-link>
   </div>
 </template>
 
 <script>
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
+import { watchEffect } from 'vue'
 
 export default {
+  props: ['page'],
   name: 'EventList',
   components: {
     EventCard
   },
   data() {
     return {
-      events: null
+      events: null,
+      totalEvents: 0,
+      totalPages: 0
     }
   },
   created() {
-    EventService.getEvents()
-      .then(response => {
-        this.events = response.data
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    watchEffect(() => {
+      this.events = null
+      EventService.getEvents(2, this.page)
+        .then(response => {
+          this.events = response.data
+          this.totalEvents = response.headers['x-total-count']
+          this.totalPages = response.headers['x-total-count'] / 2
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    })
+  },
+  computed: {
+    hasNextPage() {
+      // First, calculate total number of pages.
+      var totalPages = Math.ceil(this.totalEvents / 2) // 2 is per page count.
+      return this.page < totalPages
+    }
   }
 }
 </script>
 
 <style scoped>
 .events {
-  display: grid;
-  align-items: baseline;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  justify-items: stretch;
-  column-count: 3;
-  grid-template-columns: repeat(3, 16%);
-  column-gap: 0;
+  column-gap: 3%;
+}
+
+.pagination {
+  display: flex;
+  width: 340px;
+  margin: auto;
+}
+.pagination a {
+  flex: 1;
+  text-decoration: none;
+  color: #2c3e50;
+}
+
+#page-prev {
+  text-align: left;
+}
+
+#page-next {
+  text-align: right;
 }
 </style>
