@@ -1,5 +1,5 @@
 <template>
-  <h1>Events For Good.</h1>
+  <h1>Types Of Lighting We Sell</h1>
   <br />
   <img v-if="events === null" src="../../src/assets/images/spinner.jpg" />
   <div class="events">
