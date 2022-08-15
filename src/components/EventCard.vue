@@ -39,4 +39,10 @@ export default {
   color:#000;
   text-decoration: none;
 }
+@media (max-width: 480px) {
+  .event-card {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 </style>

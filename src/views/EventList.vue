@@ -107,9 +107,5 @@ export default {
     display: block;
     column-gap: 0%;
   }
-  .event-card {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 </style>
