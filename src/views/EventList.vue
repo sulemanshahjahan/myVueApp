@@ -15,9 +15,8 @@
 
     <div class="numeraic">
       <router-link
-        v-for="index in totalPages"
+        v-for="index in 3"
         v-show="page != index"
-        :class="{ active: isActive }"
         :key="index"
         :to="'/?page=' + index"
         >.{{ index }}.
@@ -36,7 +35,6 @@
 <script>
 import EventCard from '@/components/EventCard.vue'
 import EventService from '@/services/EventService.js'
-import { watchEffect } from 'vue'
 
 export default {
   props: ['page'],
@@ -51,19 +49,29 @@ export default {
       totalPages: 0
     }
   },
-  created() {
-    watchEffect(() => {
-      this.events = null
-      EventService.getEvents(2, this.page)
-        .then(response => {
-          this.events = response.data
-          this.totalEvents = response.headers['x-total-count']
-          this.totalPages = response.headers['x-total-count'] / 2
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
+      .then(response => {
+        next(comp => {
+          comp.events = response.data
+          comp.totalEvents = response.headers['x-total-count']
+          comp.totalPages = response.headers['x-total-count'] / 2
         })
-        .catch(error => {
-          console.log(error)
-        })
-    })
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+  },
+  beforeRouteUpdate(routeTo) {
+    return EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
+      .then(response => {
+        this.events = response.data // <-----
+        this.totalEvents = response.headers['x-total-count'] // <-----
+        this.totalPages = response.headers['x-total-count'] / 2
+      })
+      .catch(() => {
+        return { name: 'NetworkError' }
+      })
   },
   computed: {
     hasNextPage() {

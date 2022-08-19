@@ -20,13 +20,23 @@ export default {
       event: null
     }
   },
-  created() {
-    EventService.getEvent(this.id)
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    EventService.getEvent(parseInt(routeTo.params.id))
       .then(response => {
-        this.event = response.data
+        next(comp => {
+          console.log('Event ID: ' + routeTo.params.id)
+          comp.event = response.data
+        })
       })
       .catch(error => {
-        console.log(error)
+        if (error.response && error.response.status == 404) {
+          this.$router.push({
+            name: 'NetworkError',
+            params: { resource: 'event' }
+          })
+        } else {
+          this.$router.push({ name: 'NetworkError' })
+        }
       })
   }
 }
