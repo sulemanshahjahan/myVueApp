@@ -40,11 +40,11 @@
 
       <button type="submit">Submit</button>
     </form>
+    <div>{{ $store.state.events }}</div>
   </div>
 </template>
 
 <script>
-import EventService from '@/services/EventService'
 export default {
   data() {
     return {
@@ -73,11 +73,7 @@ export default {
     onSubmit() {
       this.event.id = Math.floor(1000 + Math.random() * 9000)
       this.event.organizer = this.$store.state.user
-      EventService.postEvent(this.event)
-        .then(() => {})
-        .catch(error => {
-          console.log(error)
-        })
+      this.$store.dispatch('createEvent', this.event)
     }
   }
 }

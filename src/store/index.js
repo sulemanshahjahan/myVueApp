@@ -1,10 +1,26 @@
 import { createStore } from 'vuex'
+import EventService from '@/services/EventService'
 
 export default createStore({
   state: {
-    user: 'Adam Jahr'
+    user: 'Suleman Shahjahan',
+    events: []
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    ADD_EVENT(state, product) {
+      state.events.push(product)
+    }
+  },
+  actions: {
+    createEvent({ commit }, event) {
+      EventService.postEvent(event)
+        .then(() => {
+          commit('ADD_EVENT', event)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
   modules: {}
 })

@@ -13,9 +13,9 @@
       >Prev Page
     </router-link>
 
-    <div class="numeraic">
+    <div :id="allPages" class="numeraic">
       <router-link
-        v-for="index in 3"
+        v-for="index in allPages"
         v-show="page != index"
         :key="index"
         :to="'/?page=' + index"
@@ -45,8 +45,7 @@ export default {
   data() {
     return {
       events: null,
-      totalEvents: 0,
-      totalPages: 0
+      totalEvents: 0
     }
   },
   beforeRouteEnter(routeTo, routeFrom, next) {
@@ -55,7 +54,6 @@ export default {
         next(comp => {
           comp.events = response.data
           comp.totalEvents = response.headers['x-total-count']
-          comp.totalPages = response.headers['x-total-count'] / 2
         })
       })
       .catch(() => {
@@ -67,7 +65,6 @@ export default {
       .then(response => {
         this.events = response.data // <-----
         this.totalEvents = response.headers['x-total-count'] // <-----
-        this.totalPages = response.headers['x-total-count'] / 2
       })
       .catch(() => {
         return { name: 'NetworkError' }
@@ -78,6 +75,9 @@ export default {
       // First, calculate total number of pages.
       var totalPages = Math.ceil(this.totalEvents / 2) // 2 is per page count.
       return this.page < totalPages
+    },
+    allPages() {
+      return Math.ceil(this.totalEvents / 2)
     }
   }
 }
