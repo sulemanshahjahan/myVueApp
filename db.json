@@ -1,18 +1,6 @@
 {
   "events": [
     {
-      "id": 123,
-      "category": "animal welfare",
-      "title": "Residential",
-      "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360605/img1250-w14002x.png",
-      "description": "Click to learn more about residential lighting.",
-      "details": "This is one of the best lightings shop you will ever find.",
-      "location": "Meow Town",
-      "date": "January 28, 2022",
-      "time": "12:00",
-      "organizer": "Kat Laydee"
-    },
-    {
       "id": 456,
       "category": "food",
       "title": "Commercial",
@@ -37,102 +25,16 @@
       "organizer": "Carey Wales"
     },
     {
-      "id": 112,
-      "category": "animal welfare",
-      "title": "Outdoor",
-      "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360605/img1250-w14002x.png",
-      "description": "Click to learn more about outdoor lighting.",
-      "details": "This is one of the best lightings shop you will ever find.",
-      "location": "Meow Town",
-      "date": "January 28, 2022",
-      "time": "12:00",
-      "organizer": "Kat Laydee"
-    },
-    {
-      "id": 113,
-      "category": "food",
-      "title": "Bithday Party",
-      "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360606/img0732-w14002x-1.png",
-      "description": "Click to learn more about birthday party lighting.",
-      "details": "This is one of the best lightings shop you will ever find.",
-      "location": "Flora City",
-      "date": "March 14, 2022",
-      "time": "10:00",
-      "organizer": "Fern Pollin"
-    },
-    {
-      "id": 114,
-      "category": "sustainability",
-      "title": "Disco",
-      "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360605/photo-jul-04-10-14-40-pm-w14002x-1.png",
-      "description": "Click to learn more about disco lighting.",
-      "details": "This is one of the best lightings shop you will ever find.",
-      "location": "Playa Del Carmen",
-      "date": "July 22, 2022",
-      "time": "11:00",
-      "organizer": "Carey Wales"
-    },
-    {
-      "id": 444,
-      "category": "housing",
+      "id": 9845,
+      "category": "",
       "title": "Funeral Lighting",
+      "description": "This lighting shadows some sadness and used for funeral lightings",
+      "location": "Mumbai",
       "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360605/photo-jul-04-10-14-40-pm-w14002x-1.png",
-      "description": "This is specially for funeral lighting",
-      "location": "Bora Qabristan",
-      "date": "2022",
-      "time": "10AM",
-      "organizer": "Adam Jahr"
-    },
-    {
-      "id": 8028,
-      "category": "nature",
-      "title": "NATURAL LIGHTING",
-      "image": "https://tapita.io/pb/pub/media/spb/usr/3866/oti/1658751360606/img0732-w14002x-1.png",
-      "description": "wah bhai ",
-      "location": "finally",
-      "date": "2022",
-      "time": "AM",
-      "organizer": "Adam Jahr"
-    },
-    {
-      "id": 6297,
-      "category": "animal welfare",
-      "title": "Funeral Lighting",
-      "description": "Wow",
-      "location": "wow",
-      "date": "wow",
-      "time": "wow",
-      "organizer": "Adam Jahr"
-    },
-    {
-      "id": 1003,
-      "category": "animal welfare",
-      "title": "Animal Farm Lighting ",
-      "description": "This is specially for animal farms",
-      "location": "Karachi",
-      "date": "2022",
-      "time": "10AM",
-      "organizer": "Suleman Shahjahan"
-    },
-    {
-      "id": 9437,
-      "category": "food",
-      "title": "Food Festival",
-      "description": "Wow",
-      "location": "weow",
-      "date": "wow",
-      "time": "wow",
-      "organizer": "Suleman Shahjahan"
-    },
-    {
-      "id": 6498,
-      "category": "housing",
-      "title": "Housing Lights",
-      "description": "This is lighting house",
-      "location": "Karachi",
-      "date": "2022",
-      "time": "10AM",
-      "organizer": "Suleman Shahjahan"
+      "date": "08-08-2011",
+      "time": "",
+      "organizer": "Suleman Shahjahan",
+      "timee": "10:00 PM"
     }
   ]
 }

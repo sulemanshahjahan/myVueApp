@@ -2,7 +2,7 @@
   <h1>Types Of Lighting We Sell</h1>
   <br />
   <img v-if="events === null" src="../../src/assets/images/spinner.jpg" />
-  <div class="events">
+  <div class="events" :class="isActive">
     <EventCard v-for="event in events" :key="event.id" :event="event" />
   </div>
   <div class="pagination">
@@ -13,7 +13,7 @@
       >Prev Page
     </router-link>
 
-    <div :id="allPages" class="numeraic">
+    <div class="numeraic" :data-numOFpages="allPages">
       <router-link
         v-for="index in allPages"
         v-show="page != index"
@@ -34,42 +34,43 @@
 
 <script>
 import EventCard from '@/components/EventCard.vue'
-import EventService from '@/services/EventService.js'
+import { watchEffect } from 'vue'
 
 export default {
-  props: ['page'],
+  props: {
+    page: {
+      type: Number,
+      required: true
+    },
+    numOfPages: {
+      type: Number,
+      required: false
+    }
+  },
   name: 'EventList',
   components: {
     EventCard
   },
   data() {
     return {
-      events: null,
-      totalEvents: 0
+      totalEvents: 0,
+      isActive: true
     }
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
-      .then(response => {
-        next(comp => {
-          comp.events = response.data
-          comp.totalEvents = response.headers['x-total-count']
+  created() {
+    watchEffect(() => {
+      this.totalEvents = this.$store.state.numOfPaages
+      this.$store
+        .dispatch('fetchEvents', this.$route.query.page)
+        .catch(error => {
+          this.$router.push({
+            name: 'ErrorDisplay',
+            params: { error: error }
+          })
         })
-      })
-      .catch(() => {
-        next({ name: 'NetworkError' })
-      })
+    })
   },
-  beforeRouteUpdate(routeTo) {
-    return EventService.getEvents(2, parseInt(routeTo.query.page) || 1)
-      .then(response => {
-        this.events = response.data // <-----
-        this.totalEvents = response.headers['x-total-count'] // <-----
-      })
-      .catch(() => {
-        return { name: 'NetworkError' }
-      })
-  },
+
   computed: {
     hasNextPage() {
       // First, calculate total number of pages.
@@ -78,6 +79,9 @@ export default {
     },
     allPages() {
       return Math.ceil(this.totalEvents / 2)
+    },
+    events() {
+      return this.$store.state.events
     }
   }
 }
@@ -100,7 +104,7 @@ export default {
 .pagination a {
   flex: 1;
   text-decoration: none;
-  color: #2c3e50;
+  color: #fff;
 }
 
 #page-prev {

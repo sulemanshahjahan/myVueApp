@@ -8,6 +8,7 @@ import About from '../views/About.vue'
 import EventCreate from '../views/EventCreate.vue'
 import NotFound from '@/views/NotFound.vue'
 import NetworkError from '@/views/NetworkError.vue'
+import ErrorDisplay from '@/views/ErrorDisplay.vue'
 import NProgress from 'nprogress'
 
 const routes = [
@@ -65,6 +66,12 @@ const routes = [
     path: '/network-error',
     name: 'NetworkError',
     component: NetworkError
+  },
+  {
+    path: '/error/:error',
+    name: 'ErrorDisplay',
+    props: true,
+    component: ErrorDisplay
   }
 ]
 

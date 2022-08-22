@@ -1,5 +1,8 @@
 <template>
-  <router-link class="event-link" :to="{ name: 'EventDetails', params: { id: event.id } }">
+  <router-link
+    class="event-link"
+    :to="{ name: 'EventDetails', params: { id: event.id } }"
+  >
     <div class="event-card">
       <img :src="event.image" />
       <h4>{{ event.title }}</h4>
@@ -24,7 +27,7 @@ export default {
   padding: 20px;
   width: 250px;
   cursor: pointer;
-  border: 1px solid #39495c;
+  border: 1px solid #fff;
   margin-bottom: 18px;
 }
 
@@ -36,7 +39,7 @@ export default {
   width: 100%;
 }
 .event-link {
-  color:#000;
+  color: #fff;
   text-decoration: none;
 }
 @media (max-width: 480px) {

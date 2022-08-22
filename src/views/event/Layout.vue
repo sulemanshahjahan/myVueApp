@@ -7,37 +7,40 @@
       <router-link :to="{ name: 'EventRegister' }">Register</router-link>
       |
       <router-link :to="{ name: 'EventEdit' }">Edit</router-link>
+      |
+      <a href="#" @click="deleteThis">Delete</a>
     </div>
     <router-view :event="event" />
   </div>
 </template>
 <script>
-import EventService from '@/services/EventService.js'
+import EventService from '@/services/EventService'
 export default {
   props: ['id'],
-  data() {
-    return {
-      event: null
+  created() {
+    this.$store.dispatch('fetchEvent', this.id)
+  },
+  computed: {
+    event() {
+      return this.$store.state.event
     }
   },
-  beforeRouteEnter(routeTo, routeFrom, next) {
-    EventService.getEvent(parseInt(routeTo.params.id))
-      .then(response => {
-        next(comp => {
-          console.log('Event ID: ' + routeTo.params.id)
-          comp.event = response.data
-        })
-      })
-      .catch(error => {
-        if (error.response && error.response.status == 404) {
+  methods: {
+    deleteThis() {
+      EventService.deleteEvent(this.id)
+        .then(response => {
+          alert('DELETED SUCCESSFULLY:  ' + this.event.title + response.data)
           this.$router.push({
-            name: 'NetworkError',
-            params: { resource: 'event' }
+            name: 'EventList'
           })
-        } else {
-          this.$router.push({ name: 'NetworkError' })
-        }
-      })
+        })
+        .catch(error => {
+          this.$router.push({
+            name: 'ErrorDisplay',
+            params: { error: error }
+          })
+        })
+    }
   }
 }
 </script>

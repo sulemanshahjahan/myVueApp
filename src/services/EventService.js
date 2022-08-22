@@ -19,5 +19,9 @@ export default {
   postEvent(event) {
     // new post request
     return apiClient.post('/events', event)
+  },
+  deleteEvent(id) {
+    // new post request
+    return apiClient.delete('/events/' + id)
   }
 }
